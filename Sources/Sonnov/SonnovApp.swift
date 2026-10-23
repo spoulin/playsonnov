@@ -1,8 +1,28 @@
 import SwiftUI
 
+/// Handles sonnov://play, pause, toggle, next and shuffle (e.g. from a Stream Deck).
+final class AppDelegate: NSObject, NSApplicationDelegate {
+    func application(_ application: NSApplication, open urls: [URL]) {
+        for url in urls where url.scheme == "sonnov" {
+            Task { @MainActor in
+                let player = Player.shared
+                switch url.host {
+                case "play": player.play()
+                case "pause": player.pause()
+                case "toggle": player.toggle()
+                case "next": player.nextTrack()
+                case "shuffle": player.nextAlbum()
+                default: break
+                }
+            }
+        }
+    }
+}
+
 @main
 struct SonnovApp: App {
-    @StateObject private var player = Player()
+    @NSApplicationDelegateAdaptor(AppDelegate.self) private var delegate
+    @StateObject private var player = Player.shared
 
     var body: some Scene {
         MenuBarExtra {

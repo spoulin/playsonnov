@@ -10,6 +10,8 @@ final class Player: ObservableObject {
     @Published private(set) var pageURL: URL?
     @Published private(set) var failed = false
 
+    static let shared = Player()
+
     private let player = AVPlayer()
     private var album: Album?
     private var index = 0
@@ -34,6 +36,9 @@ final class Player: ObservableObject {
             Task { await startRandomAlbum() }
         }
     }
+
+    func play() { if !isPlaying { toggle() } }
+    func pause() { if isPlaying { toggle() } }
 
     func nextTrack() {
         guard album != nil else { return }

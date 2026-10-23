@@ -17,6 +17,10 @@ cat > $APP/Contents/Info.plist <<P
 <key>CFBundlePackageType</key><string>APPL</string>
 <key>CFBundleVersion</key><string>1</string>
 <key>LSUIElement</key><true/>
+<key>CFBundleURLTypes</key><array><dict>
+<key>CFBundleURLName</key><string>com.stephanepoulin.sonnov</string>
+<key>CFBundleURLSchemes</key><array><string>sonnov</string></array>
+</dict></array>
 <key>NSAppTransportSecurity</key><dict><key>NSAllowsArbitraryLoads</key><true/></dict>
 </dict></plist>
 P
